@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browser Info</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef2f5;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: inline-block;
+      min-width: 300px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: #0077ff;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #005bcc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Browser Information</h1>
+
+  <div class="card">
+    <p><strong>User Agent:</strong> <span id="ua"></span></p>
+    <p><strong>Browser Language:</strong> <span id="lang"></span></p>
+    <p><strong>Platform:</strong> <span id="platform"></span></p>
+    <p><strong>Online Status:</strong> <span id="online"></span></p>
+    <p><strong>Screen Size:</strong> <span id="screen"></span></p>
+  </div>
+
+  <button onclick="window.open('Other Pages/Sensitive.html', '_blank')">
+    Show Sensitive Information
+  </button>
+
+  <script>
+    document.getElementById("ua").textContent = navigator.userAgent
+    document.getElementById("lang").textContent = navigator.language
+    document.getElementById("platform").textContent = navigator.platform
+    document.getElementById("online").textContent = navigator.onLine ? "Online" : "Offline"
+    document.getElementById("screen").textContent = screen.width + " x " + screen.height
+  </script>
+</body>
+</html>
