@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sensitive Information</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef2f5;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: inline-block;
+      min-width: 300px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: #0077ff;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #005bcc;
+    }
+    video {
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 10px;
+    }
+    audio {
+      margin-top: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sensitive Information</h1>
+
+  <div class="card">
+    <button id="ipBtn">Check IP Address</button>
+    <p><strong>IP Address:</strong> <span id="ip">127.0.0.1</span></p>
+  </div>
+
+  <div class="card">
+    <button id="cameraBtn">Test Camera</button>
+    <video id="camera" autoplay playsinline style="display:none;"></video>
+  </div>
+
+  <div class="card">
+    <button id="micBtn">Test Microphone</button>
+    <audio id="mic" controls autoplay style="display:none;"></audio>
+  </div>
+
+  <script>
+    // IP button logic
+    document.getElementById("ipBtn").addEventListener("click", async () => {
+      document.getElementById("ip").textContent = "127.0.0.1"; // placeholder while loading
+      try {
+        const res = await fetch("https://api.ipify.org?format=json");
+        const data = await res.json();
+        document.getElementById("ip").textContent = data.ip;
+      } catch(e) {
+        document.getElementById("ip").textContent = "Error fetching IP";
+      }
+    });
+
+    // Camera button logic
+    document.getElementById("cameraBtn").addEventListener("click", async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById("camera");
+        video.srcObject = stream;
+        video.style.display = "block";
+      } catch(e) {
+        alert("Camera access denied or not available");
+      }
+    });
+
+    // Microphone button logic
+    document.getElementById("micBtn").addEventListener("click", async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audio = document.getElementById("mic");
+        audio.srcObject = stream;
+        audio.style.display = "block";
+      } catch(e) {
+        alert("Microphone access denied or not available");
+      }
+    });
+  </script>
+</body>
+</html>
